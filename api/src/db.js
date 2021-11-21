@@ -1,3 +1,6 @@
+// para correr postgres
+// pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');

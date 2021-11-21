@@ -4,9 +4,38 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {
+    id: {
+      type: DataTypes.BIGINT,// defino como quiero que sea la base de datos y le doy dos propiedades
+      allowNull: false,       // propiedad Id y name.
+      primaryKey: true
+    },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false, // allownull indica que n este caso los stats pueden estar vacios
+    },
+    hp: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    attack: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    defense: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    speed: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    height: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    weight: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
     },
   });
 };
