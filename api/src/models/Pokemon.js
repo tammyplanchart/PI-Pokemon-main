@@ -7,7 +7,8 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.BIGINT,// defino como quiero que sea la base de datos y le doy dos propiedades
       allowNull: false,       // propiedad Id y name.
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true // con esto auto incremento el id a medida se va agregando uno nuevo id 1,2,3,4...
     },
     name: {
       type: DataTypes.STRING,
