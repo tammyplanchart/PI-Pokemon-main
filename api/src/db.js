@@ -1,6 +1,7 @@
 // para correr postgres
 // pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
+const axios = require('axios');
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
@@ -33,9 +34,36 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Pokemon } = sequelize.models;
+const { Pokemon,Type } = sequelize.models;
+
+// llenar la tabla de types
+Type.sync().then(
+  axios
+  .get("https://pokeapi.co/api/v2/type")
+  .then(typesResponse=>{ //ya no coloco el pokemon respnse pq estoy buscando es el types no el pokemon
+    console.log("ya pedi los types de los pokemons", typesResponse.data.results) //en la api puedo ver que los types estan en results
+
+    const typesRequests = typesResponse.data.results.map(result => 
+      axios
+      .get(result.url)
+      .then(typeResponse => ({
+              id: typeResponse.data.id, 
+              name: typeResponse.data.name
+          })
+      )
+  )
+
+    Promise.all(typesRequests).then(types=>{
+        console.log("ya pedi cada uno de los types")
+        console.log(types)
+        Type.bulkCreate(types)
+    })
+  })
+)
 
 // Aca vendrian las relaciones
+Pokemon.belongsToMany(Type,{through:"PokemonType"})
+Type.belongsToMany(Pokemon,{through:"PokemonType"})
 // Product.hasMany(Reviews);
 
 module.exports = {
