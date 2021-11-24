@@ -12,38 +12,40 @@ router.get('/', function(req, res) {// router maneja como definimos en el archiv
         .get("https://pokeapi.co/api/v2/pokemon/" + req.query.name)
         .then(pokemonResponse=>{// uso el then para la promise qu eme indica que cuando se termine de correr lo anterior recien ahi, core esto
             console.log("ya pedi el detalle del pokemon", pokemonResponse.data.stats);;;
-             console.log("no existe ese pokemon")
+            console.log("no existe ese pokemon")
             const pokemon = {// aqui pongo todo en un solo objeto la info de un solo pokemon
                 image: pokemonResponse.data.sprites.front_default, // la imagen
                 types: pokemonResponse.data.types.map(type=>type.type.name), // con el map recorro cada uno de los types y entro a los datos que son type y name
-                name: pokemonResponse.data.name
+                name: pokemonResponse.data.name,
+                id: pokemonResponse.data.id
             }   
-            res.send(pokemon);
+            res.send([pokemon]);
         })
+        .catch(error=>res.status(404).send())
     } else {
+        axios
+        .get("https://pokeapi.co/api/v2/pokemon?limit=40")
+        .then(pokemonsReponse=>{// uso el then para la promise qu eme indica que cuando se termine de correr lo anterior recien ahi, core esto
+            console.log("ya pedi la lista de pokemons", pokemonsReponse)
 
-    axios
-    .get("https://pokeapi.co/api/v2/pokemon")
-    .then(pokemonsReponse=>{// uso el then para la promise qu eme indica que cuando se termine de correr lo anterior recien ahi, core esto
-        console.log("ya pedi la lista de pokemons", pokemonsReponse)
-
-        const pokemonRequests = pokemonsReponse.data.results.map(result => //para cada resultado tengo que pedir la info del pokemon entero nueva a la url para poder obtener la imagen y los tipos, por eso uso el result.url
-            axios
-            .get(result.url)
-            .then(pokemonResponse => ({
-                    image: pokemonResponse.data.sprites.front_default, // la imagen
-                    types: pokemonResponse.data.types.map(type=>type.type.name), // con el map recorro cada uno de los types y entro a los datos que son type y name
-                    name: pokemonResponse.data.name
-                })
+            const pokemonRequests = pokemonsReponse.data.results.map(result => //para cada resultado tengo que pedir la info del pokemon entero nueva a la url para poder obtener la imagen y los tipos, por eso uso el result.url
+                axios
+                .get(result.url)
+                .then(pokemonResponse => ({
+                        image: pokemonResponse.data.sprites.front_default, // la imagen
+                        types: pokemonResponse.data.types.map(type=>type.type.name), // con el map recorro cada uno de los types y entro a los datos que son type y name
+                        name: pokemonResponse.data.name,
+                        id: pokemonResponse.data.id
+                    })
+                )
             )
-        )
 
-        Promise.all(pokemonRequests).then(pokemons=>{
-            console.log("ya pedi cada uno de los pokemons")
-            console.log(pokemons)
-            res.send(pokemons);// con el res send hago que la api me devuelva la info de los pokemons
-        })
-    })}
+            Promise.all(pokemonRequests).then(pokemons=>{
+                console.log("ya pedi cada uno de los pokemons")
+                console.log(pokemons)
+                res.send(pokemons);// con el res send hago que la api me devuelva la info de los pokemons
+            })
+        })}
     
 });
 
