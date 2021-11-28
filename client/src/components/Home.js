@@ -13,22 +13,44 @@ function Home() {
 
   const [page, setPage] = useState(0)
   const [search, setSearch] = useState("")
+  const [order, setOrder] = useState("Nombre")
+  const [asc_desc, setAsc] = useState("Ascendente")
 
   const searchPokemon = () => {
     dispatch(getPokemons(search));
   }
 
-  useEffect (
+  useEffect(
     () => {
       searchPokemon()
     }, [] // faltaba el array vacio para que no se ejecute el useEffect cada vez que se cargue la pagina 
-  ) 
-  
-   // esto es para que cuando cambie el state de search me ejecute la funcion searchPokemon  
+  )
 
-  //const sortedPokemons = pokemons.sort()
+  // esto es para que cuando cambie el state de search me ejecute la funcion searchPokemon  
 
-  const pokemonsPorPagina = pokemons.slice(page * 12, page * 12 + 12)
+  const sortedPokemons = pokemons.sort((pokemon1, pokemon2) => {
+    if (order === "Nombre") {
+      if (pokemon1.name < pokemon2.name) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+
+    if (order === "Fuerza") {
+      if (pokemon1.attack < pokemon2.attack) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+  });
+
+  if(asc_desc === "Descendente"){
+    sortedPokemons.reverse()
+  }
+
+  const pokemonsPorPagina = sortedPokemons.slice(page * 12, page * 12 + 12)
 
   return (
     <div >
@@ -43,7 +65,17 @@ function Home() {
       >
         Buscar
       </button>
-      {pokemonsLoading && <p><img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" alt = "Cargando" height="40" /></p>}
+      <div>
+        <select value={order} onChange={e => setOrder(e.target.value)}>
+          <option value="Nombre">Nombre</option>
+          <option value="Fuerza">Fuerza</option>
+        </select>
+        <select value={asc_desc} onChange={e => setAsc(e.target.value)}>
+          <option value="Ascendente">Ascendente</option>
+          <option value="Descendente">Descendente</option>
+        </select>
+      </div>
+      {pokemonsLoading && <p><img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" alt="Cargando" height="40" /></p>}
       {!pokemonsLoading && pokemons.length === 0 && <p>No hay pokemons con ese nombre!</p>}
       {pokemons.length > 0 &&
         <div>
@@ -54,6 +86,7 @@ function Home() {
                 <td>Nombre</td>
                 <td>Imagen</td>
                 <td>Tipos</td>
+                <td>Fuerza</td>
               </tr>
             </thead>
             <tbody>
@@ -61,12 +94,13 @@ function Home() {
                 <tr key={pokemon.id}>
                   <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
-                  <td><img src={pokemon.image} alt = "pokeimagen" /></td>
+                  <td><img src={pokemon.image} alt="pokeimagen" /></td>
                   <td>
                     <ul>
                       {pokemon.types.map(type => <li key={type}>{type}</li>)}
                     </ul>
                   </td>
+                  <td>{pokemon.attack}</td>
                 </tr>
               )}
             </tbody>

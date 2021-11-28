@@ -17,7 +17,8 @@ router.get('/', function(req, res) {// router maneja como definimos en el archiv
                 image: pokemonResponse.data.sprites.front_default, // la imagen
                 types: pokemonResponse.data.types.map(type=>type.type.name), // con el map recorro cada uno de los types y entro a los datos que son type y name
                 name: pokemonResponse.data.name,
-                id: pokemonResponse.data.id
+                id: pokemonResponse.data.id,
+                attack: pokemonResponse.data.stats.find(stat=>stat.stat.name === "attack").base_stat
             }   
             res.send([pokemon]);
         })
@@ -35,7 +36,8 @@ router.get('/', function(req, res) {// router maneja como definimos en el archiv
                         image: pokemonResponse.data.sprites.front_default, // la imagen
                         types: pokemonResponse.data.types.map(type=>type.type.name), // con el map recorro cada uno de los types y entro a los datos que son type y name
                         name: pokemonResponse.data.name,
-                        id: pokemonResponse.data.id
+                        id: pokemonResponse.data.id,
+                        attack: pokemonResponse.data.stats.find(stat=>stat.stat.name === "attack").base_stat
                     })
                 )
             )
@@ -88,9 +90,9 @@ router.post('/', function(req, res) {
     }
 })
 
-// trato de crear un nuevo pkemon
+// trato de crear un nuevo pkemon                  
 // necesito la informacion del body
 // creo el pokmon
 
-
+//mis pokemons me guardo en la base de datos solo los que creo yo o los tipos el resto los saco desde la poke api
 module.exports = router;
