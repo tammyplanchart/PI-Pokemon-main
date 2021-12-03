@@ -62,8 +62,8 @@ Type.sync().then(
 )
 
 // Aca vendrian las relaciones
-Pokemon.belongsToMany(Type,{through:"PokemonType"})
-Type.belongsToMany(Pokemon,{through:"PokemonType"})
+Pokemon.belongsToMany(Type,{through:"pokemon_types"})
+Type.belongsToMany(Pokemon,{through:"pokemon_types"})
 // Product.hasMany(Reviews);
 
 module.exports = {

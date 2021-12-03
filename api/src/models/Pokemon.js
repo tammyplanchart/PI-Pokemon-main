@@ -4,12 +4,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {
-    id: {
-      type: DataTypes.BIGINT,// defino como quiero que sea la base de datos y le doy dos propiedades
-      allowNull: false,       // propiedad Id y name.
-      primaryKey: true,
-      autoIncrement: true // con esto auto incremento el id a medida se va agregando uno nuevo id 1,2,3,4...
-    },
+		id: {
+			type: DataTypes.UUID, // tipo de dato es mezcla de string y number
+			defaultValue: DataTypes.UUIDV4, // para que genere un valor para cada nuevo pokemon
+			primaryKey: true,
+			allowNull: false,
+		},
     name: {
       type: DataTypes.STRING,
       allowNull: false, // allownull indica que n este caso los stats pueden estar vacios

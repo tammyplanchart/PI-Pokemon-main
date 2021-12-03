@@ -1,15 +1,18 @@
 import './Home.css';
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getPokemons } from '../actions';
+import { getPokemons, getTypes } from '../actions';
 
 function Home() {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const pokemons = useSelector(state => state.pokemons);
+  const types = useSelector(state => state.types);
   const pokemonsLoading = useSelector(state => state.pokemonsLoading);
+  const typesLoading = useSelector(state => state.typesLoading);
 
   const [page, setPage] = useState(0)
   const [search, setSearch] = useState("")
@@ -23,6 +26,7 @@ function Home() {
   useEffect(
     () => {
       searchPokemon()
+      dispatch(getTypes())
     }, [] // faltaba el array vacio para que no se ejecute el useEffect cada vez que se cargue la pagina 
   )
 
@@ -91,7 +95,7 @@ function Home() {
             </thead>
             <tbody>
               {pokemonsPorPagina.map(pokemon =>
-                <tr key={pokemon.id}>
+                <tr key={pokemon.id} onClick={()=>history.push("/pokemon/"+pokemon.id)}>
                   <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
                   <td><img src={pokemon.image} alt="pokeimagen" /></td>
