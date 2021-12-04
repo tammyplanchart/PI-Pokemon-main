@@ -23,7 +23,7 @@ function Detail() {
     <div>
       <h1 >{pokemon.name}</h1>
       <h2 >{pokemon.pokemonId}</h2>
-      <img src={pokemon.image} alt={pokemon.name} />
+      <img src={pokemon.image} alt={pokemon.name} width={200}/>
       <table>
         <thead>
           <tr>
