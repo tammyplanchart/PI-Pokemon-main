@@ -130,7 +130,7 @@ function Home() {
                 <tr key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
                   <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
-                  <td><img src={pokemon.image} alt="pokeimagen" /></td>
+                  <td><img src={pokemon.image} alt="pokeimagen" width={96}/></td>
                   <td>
                     <ul>
                       {pokemon.types.map(type => <li key={type}>{type}</li>)}

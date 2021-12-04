@@ -16,12 +16,12 @@ function Formularios() {
 
     const [input, setInput] = useState({
         name: '',
-        attack: '',
-        defense: '',
-        hp: '',
-        speed: '',
-        height: '',
-        weight: '',
+        attack: 0,
+        defense: 0,
+        hp: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
         types: [],
         image: ''
     });
@@ -96,7 +96,7 @@ function Formularios() {
             <input
                 name="height"
                 type="number"
-                value={input.heigh}
+                value={input.height}
                 onChange={handleChange}
                 placeholder="Altura"
             />
@@ -120,10 +120,11 @@ function Formularios() {
             )}
             <input
                 name="image"
-                type="text"
+                type="url"
                 value={input.image}
                 onChange={handleChange}
-                placeholder="Imagen"
+                placeholder="URL de la imagen"
+                maxLength={255}
             />
             {!error ? null : <div>{error}</div>}
             <input type="submit" value="Submit" />

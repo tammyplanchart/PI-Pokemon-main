@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false, // allownull indica que n este caso los stats pueden estar vacios
     },
     hp: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.BIGINT, // un numero
       allowNull: true,
     },
     attack: {
@@ -36,6 +36,10 @@ module.exports = (sequelize) => {
     },
     weight: {
       type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   });

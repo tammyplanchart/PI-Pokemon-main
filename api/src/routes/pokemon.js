@@ -6,10 +6,10 @@ const { Pokemon } = require("../db.js")
 
 
 /* GET pokemons listing. */
-router.get('/', function (req, res) {// router maneja como definimos en el archivo index.js los barra pokemons, aqui se sobre entiende que como hay un router maneja pokemons
+router.get('/', function (req, res) {
     const getFromPokeapiPromise = axios
         .get("https://pokeapi.co/api/v2/pokemon/" + (req.query.name || ""), { params: { limit: 40 } })
-        .then(pokemonsResponse => {// uso el then para la promise qu eme indica que cuando se termine de correr lo anterior recien ahi, core esto
+        .then(pokemonsResponse => {// uso el then para la promise qu eme indica que cuando se termine de correr lo anterior recien ahi, corre esto
             console.log("ya pedi la lista de pokemons")
 
             let results = []
@@ -21,6 +21,7 @@ router.get('/', function (req, res) {// router maneja como definimos en el archi
 
             const pokemonRequests = results.map(result => {//para cada resultado tengo que pedir la info del pokemon entero nueva a la url para poder obtener la imagen y los tipos, por eso uso el result.url
                 if (result.url) {
+                    console.log("pidiendo el pokemon ", result.url)
                     return axios
                         .get(result.url)
                         .then(pokemonResponse => ({
@@ -62,7 +63,7 @@ router.get('/', function (req, res) {// router maneja como definimos en el archi
         name: pokemon.name,
         attack: pokemon.attack,
         types: pokemon.types.map(type => type.name),
-        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png"
+        image: pokemon.image || "https://st3.depositphotos.com/1003450/12950/i/600/depositphotos_129509386-stock-photo-plastic-game-toy-ball-isolated.jpg"
     })));
 
     // a partir de aca junto los pokemons de pokeapi y la de la base de datos
@@ -93,6 +94,7 @@ router.get('/:idPokemon', function (req, res) {// router maneja como definimos e
             .then(pokemon => {
                 res.send({// aqui pongo todo en un solo objeto la info de un solo pokemon
                     ...pokemon.dataValues,
+                    image: pokemon.dataValues.image || "https://st3.depositphotos.com/1003450/12950/i/600/depositphotos_129509386-stock-photo-plastic-game-toy-ball-isolated.jpg",
                     types: pokemon.dataValues.types.map(type => type.dataValues.name) // formatear los tipos para que me devuelva solo el nombre de los tipos
                 });
             })
