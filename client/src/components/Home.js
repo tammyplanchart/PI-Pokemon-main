@@ -18,6 +18,8 @@ function Home() {
   const [search, setSearch] = useState("")
   const [order, setOrder] = useState("Nombre")
   const [asc_desc, setAsc] = useState("Ascendente")
+  const [typeFilter, setTypeFilter] = useState("")
+  const [dbFilter, setDbFilter] = useState("")
 
   const searchPokemon = () => {
     dispatch(getPokemons(search));
@@ -50,11 +52,28 @@ function Home() {
     }
   });
 
-  if(asc_desc === "Descendente"){
+  if (asc_desc === "Descendente") {
     sortedPokemons.reverse()
   }
 
-  const pokemonsPorPagina = sortedPokemons.slice(page * 12, page * 12 + 12)
+  let filteredPokemons = sortedPokemons;
+  if (typeFilter !== "") {
+    filteredPokemons = filteredPokemons.filter(pokemon => pokemon.types.includes(typeFilter))
+  }
+  if (dbFilter !== "") {
+    if (dbFilter === "db") {
+      filteredPokemons = filteredPokemons.filter(pokemon => typeof (pokemon.id) === "string")
+    }
+    if (dbFilter === "pokeapi") {
+      filteredPokemons = filteredPokemons.filter(pokemon => typeof (pokemon.id) !== "string")
+    }
+  }
+
+  const pokemonsByPage = filteredPokemons.slice(page * 12, page * 12 + 12)
+
+  if (typesLoading) {
+    return <div>Cargando tipos...</div>
+  }
 
   return (
     <div >
@@ -70,6 +89,7 @@ function Home() {
         Buscar
       </button>
       <div>
+        <h4>Orden</h4>
         <select value={order} onChange={e => setOrder(e.target.value)}>
           <option value="Nombre">Nombre</option>
           <option value="Fuerza">Fuerza</option>
@@ -77,6 +97,18 @@ function Home() {
         <select value={asc_desc} onChange={e => setAsc(e.target.value)}>
           <option value="Ascendente">Ascendente</option>
           <option value="Descendente">Descendente</option>
+        </select>
+        <h4>Filtros</h4>
+        <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)}>
+          <option value="">Sin filtro</option>
+          {types.map(type => <option key={type.id} value={type.name}>
+            {type.name}
+          </option>)}
+        </select>
+        <select value={dbFilter} onChange={e => setDbFilter(e.target.value)}>
+          <option value="">Sin filtro</option>
+          <option value="db">Base de datos</option>
+          <option value="pokeapi">Pokeapi</option>
         </select>
       </div>
       {pokemonsLoading && <p><img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" alt="Cargando" height="40" /></p>}
@@ -94,8 +126,8 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              {pokemonsPorPagina.map(pokemon =>
-                <tr key={pokemon.id} onClick={()=>history.push("/pokemon/"+pokemon.id)}>
+              {pokemonsByPage.map(pokemon =>
+                <tr key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
                   <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
                   <td><img src={pokemon.image} alt="pokeimagen" /></td>
