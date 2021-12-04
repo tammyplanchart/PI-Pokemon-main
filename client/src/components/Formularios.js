@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPokemon, getTypes } from '../actions';
+import NavBar from './NavBar';
 
 function Formularios() {
     const dispatch = useDispatch();
@@ -57,78 +58,81 @@ function Formularios() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                name="name"
-                type="text"
-                value={input.name}
-                onChange={handleChange}
-                placeholder="Nombre"
-            />
-            <input
-                name="attack"
-                type="number"
-                value={input.attack}
-                onChange={handleChange}
-                placeholder="Fuerza"
-            />
-            <input
-                name="defense"
-                type="number"
-                value={input.defense}
-                onChange={handleChange}
-                placeholder="Defensa"
-            />
-            <input
-                name="hp"
-                type="number"
-                value={input.hp}
-                onChange={handleChange}
-                placeholder="Vidas"
-            />
-            <input
-                name="speed"
-                type="number"
-                value={input.speed}
-                onChange={handleChange}
-                placeholder="Velocidad"
-            />
-            <input
-                name="height"
-                type="number"
-                value={input.height}
-                onChange={handleChange}
-                placeholder="Altura"
-            />
-            <input
-                name="weight"
-                type="number"
-                value={input.weight}
-                onChange={handleChange}
-                placeholder="Peso"
-            />
-            {types.map(type =>
-                <label key={type.id}>
-                    <input
-                        type="checkbox"
-                        name={type.id} //para cada input de check se le agrega un id
-                        onChange={handleChangeType}
-                        checked={input.types.includes(type.id)} // va a estar checkeado si el id del input esta en el array de types
-                    />
-                    {type.name}
-                </label>
-            )}
-            <input
-                name="image"
-                type="url"
-                value={input.image}
-                onChange={handleChange}
-                placeholder="URL de la imagen"
-                maxLength={255}
-            />
-            {!error ? null : <div>{error}</div>}
-            <input type="submit" value="Submit" />
-        </form>
+        <>
+            <NavBar />
+            <form onSubmit={handleSubmit}>
+                <input
+                    name="name"
+                    type="text"
+                    value={input.name}
+                    onChange={handleChange}
+                    placeholder="Nombre"
+                />
+                <input
+                    name="attack"
+                    type="number"
+                    value={input.attack}
+                    onChange={handleChange}
+                    placeholder="Fuerza"
+                />
+                <input
+                    name="defense"
+                    type="number"
+                    value={input.defense}
+                    onChange={handleChange}
+                    placeholder="Defensa"
+                />
+                <input
+                    name="hp"
+                    type="number"
+                    value={input.hp}
+                    onChange={handleChange}
+                    placeholder="Vidas"
+                />
+                <input
+                    name="speed"
+                    type="number"
+                    value={input.speed}
+                    onChange={handleChange}
+                    placeholder="Velocidad"
+                />
+                <input
+                    name="height"
+                    type="number"
+                    value={input.height}
+                    onChange={handleChange}
+                    placeholder="Altura"
+                />
+                <input
+                    name="weight"
+                    type="number"
+                    value={input.weight}
+                    onChange={handleChange}
+                    placeholder="Peso"
+                />
+                {types.map(type =>
+                    <label key={type.id}>
+                        <input
+                            type="checkbox"
+                            name={type.id} //para cada input de check se le agrega un id
+                            onChange={handleChangeType}
+                            checked={input.types.includes(type.id)} // va a estar checkeado si el id del input esta en el array de types
+                        />
+                        {type.name}
+                    </label>
+                )}
+                <input
+                    name="image"
+                    type="url"
+                    value={input.image}
+                    onChange={handleChange}
+                    placeholder="URL de la imagen"
+                    maxLength={255}
+                />
+                {!error ? null : <div>{error}</div>}
+                <input type="submit" value="Submit" />
+            </form>
+        </>
     )
 }
 

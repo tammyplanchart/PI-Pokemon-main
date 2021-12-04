@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { getPokemon, getTypes } from '../actions';
+import NavBar from './NavBar';
 
 function Detail() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Detail() {
 
   return (
     <div>
+      <NavBar />
       <h1 >{pokemon.name}</h1>
       <h2 >{pokemon.pokemonId}</h2>
       <img src={pokemon.image} alt={pokemon.name} width={200}/>

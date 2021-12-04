@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { getPokemons, getTypes } from '../actions';
+import NavBar from './NavBar';
 
 function Home() {
   const history = useHistory();
@@ -77,6 +78,7 @@ function Home() {
 
   return (
     <div >
+      <NavBar />
       <h1 className="Title" >Home</h1>
       <input
         placeholder="Busca un pokemon"
@@ -130,7 +132,7 @@ function Home() {
                 <tr key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
                   <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
-                  <td><img src={pokemon.image} alt="pokeimagen" width={96}/></td>
+                  <td><img src={pokemon.image} alt="pokeimagen" width={96} /></td>
                   <td>
                     <ul>
                       {pokemon.types.map(type => <li key={type}>{type}</li>)}
