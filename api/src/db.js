@@ -34,39 +34,27 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Pokemon,Type } = sequelize.models;
+const { Pokemon, Type } = sequelize.models;
 
-// llenar la tabla de types
-Type.sync().then(
+const llenarTypes = () =>
+  // llenar la tabla de types
   axios
-  .get("https://pokeapi.co/api/v2/type")
-  .then(typesResponse=>{ //ya no coloco el pokemon respnse pq estoy buscando es el types no el pokemon
-    console.log("ya pedi los types de los pokemons", typesResponse.data.results) //en la api puedo ver que los types estan en results
+    .get("https://pokeapi.co/api/v2/type")
+    .then(typesResponse => { //ya no coloco el pokemon respnse pq estoy buscando es el types no el pokemon
+      console.log("ya pedi los types de los pokemons", typesResponse.data.results) //en la api puedo ver que los types estan en results
 
-    const typesRequests = typesResponse.data.results.map(result => 
-      axios
-      .get(result.url)
-      .then(typeResponse => ({
-              id: typeResponse.data.id, 
-              name: typeResponse.data.name
-          })
-      )
-  )
+      const types = typesResponse.data.results.map(result => ({ name: result.name }));
 
-    Promise.all(typesRequests).then(types=>{
-        console.log("ya pedi cada uno de los types")
-        console.log(types)
-        Type.bulkCreate(types)
+      return Type.bulkCreate(types)
     })
-  })
-)
 
 // Aca vendrian las relaciones
-Pokemon.belongsToMany(Type,{through:"pokemon_types"})
-Type.belongsToMany(Pokemon,{through:"pokemon_types"})
+Pokemon.belongsToMany(Type, { through: "pokemon_types" })
+Type.belongsToMany(Pokemon, { through: "pokemon_types" })
 // Product.hasMany(Reviews);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
+  conn: sequelize,     // para importart la conexión { conn } = require('./db.js');,
+  llenarTypes
 };
