@@ -1,3 +1,4 @@
+import './Formularios.css';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,8 +7,8 @@ import { createPokemon, getTypes } from '../actions';
 import NavBar from './NavBar';
 
 function Formularios() {
-  const history = useHistory();
-  const dispatch = useDispatch();
+    const history = useHistory();
+    const dispatch = useDispatch();
     const types = useSelector(state => state.types);
     const typesLoading = useSelector(state => state.typesLoading);
 
@@ -28,8 +29,6 @@ function Formularios() {
         types: [],
         image: ''
     });
-
-    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -64,6 +63,7 @@ function Formularios() {
             <NavBar />
             <form onSubmit={handleSubmit}>
                 <input
+                    className="Formularios"
                     name="name"
                     type="text"
                     value={input.name}
@@ -71,6 +71,7 @@ function Formularios() {
                     placeholder="Nombre"
                 />
                 <input
+                    className="Formularios"
                     name="attack"
                     type="number"
                     value={input.attack}
@@ -78,6 +79,7 @@ function Formularios() {
                     placeholder="Fuerza"
                 />
                 <input
+                    className="Formularios"
                     name="defense"
                     type="number"
                     value={input.defense}
@@ -85,6 +87,7 @@ function Formularios() {
                     placeholder="Defensa"
                 />
                 <input
+                    className="Formularios"
                     name="hp"
                     type="number"
                     value={input.hp}
@@ -92,6 +95,7 @@ function Formularios() {
                     placeholder="Vidas"
                 />
                 <input
+                    className="Formularios"
                     name="speed"
                     type="number"
                     value={input.speed}
@@ -99,6 +103,7 @@ function Formularios() {
                     placeholder="Velocidad"
                 />
                 <input
+                    className="Formularios"
                     name="height"
                     type="number"
                     value={input.height}
@@ -106,15 +111,18 @@ function Formularios() {
                     placeholder="Altura"
                 />
                 <input
+                    className="Formularios"
                     name="weight"
                     type="number"
                     value={input.weight}
                     onChange={handleChange}
                     placeholder="Peso"
                 />
+                <br/>
                 {types.map(type =>
                     <label key={type.id}>
                         <input
+                            className="Formularios"
                             type="checkbox"
                             name={type.id} //para cada input de check se le agrega un id
                             onChange={handleChangeType}
@@ -123,7 +131,9 @@ function Formularios() {
                         {type.name}
                     </label>
                 )}
+                <br/>
                 <input
+                    className="Formularios"
                     name="image"
                     type="url"
                     value={input.image}
@@ -131,7 +141,7 @@ function Formularios() {
                     placeholder="URL de la imagen"
                     maxLength={255}
                 />
-                {!error ? null : <div>{error}</div>}
+                <br/>
                 <input type="submit" value="Submit" />
             </form>
         </>
