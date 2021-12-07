@@ -1,11 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { createPokemon, getTypes } from '../actions';
 import NavBar from './NavBar';
 
 function Formularios() {
-    const dispatch = useDispatch();
+  const history = useHistory();
+  const dispatch = useDispatch();
     const types = useSelector(state => state.types);
     const typesLoading = useSelector(state => state.typesLoading);
 
@@ -50,7 +52,7 @@ function Formularios() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPokemon(input))  // dispatch(createPokemon(input))
+        dispatch(createPokemon(input, history))  // dispatch(createPokemon(input))
     };
 
     if (typesLoading) {

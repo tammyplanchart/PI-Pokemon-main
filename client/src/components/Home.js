@@ -120,17 +120,15 @@ function Home() {
           <table>
             <thead>
               <tr>
-                <td>ID</td>
-                <td>Nombre</td>
-                <td>Imagen</td>
-                <td>Tipos</td>
-                <td>Fuerza</td>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Tipos</th>
+                <th>Fuerza</th>
               </tr>
             </thead>
             <tbody>
               {pokemonsByPage.map(pokemon =>
                 <tr key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
-                  <td>{pokemon.id}</td>
                   <td>{pokemon.name}</td>
                   <td><img src={pokemon.image} alt="pokeimagen" width={96} /></td>
                   <td>

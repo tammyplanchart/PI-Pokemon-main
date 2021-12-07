@@ -54,13 +54,16 @@ export function getTypes() {
     };
 }
 
-export function createPokemon(pokemon) {
+export function createPokemon(pokemon, history) {
     return function (dispatch) {
         dispatch({ type: "CREATE_POKEMON_LOADING", payload: true })
 
-        axios.post('http://localhost:3001/pokemons', pokemon) 
+        axios.post('http://localhost:3001/pokemons', pokemon)
             .then(
-                pokemonsResponse => dispatch({ type: "CREATE_POKEMON", payload: pokemonsResponse.data })
+                pokemonsResponse => {
+                    dispatch({ type: "CREATE_POKEMON", payload: pokemonsResponse.data })
+                    history.push('/pokemon/' + pokemonsResponse.data.id)
+                }
             )
             .finally(() =>
                 dispatch({ type: "CREATE_POKEMON_LOADING", payload: false })
