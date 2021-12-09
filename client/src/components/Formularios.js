@@ -69,6 +69,7 @@ function Formularios() {
                     value={input.name}
                     onChange={handleChange}
                     placeholder="Nombre"
+                    required
                 />
                 <input
                     className="Formularios"
