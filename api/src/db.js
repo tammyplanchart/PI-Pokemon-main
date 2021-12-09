@@ -41,7 +41,7 @@ const llenarTypes = () =>
   axios
     .get("https://pokeapi.co/api/v2/type")
     .then(typesResponse => { //ya no coloco el pokemon respnse pq estoy buscando es el types no el pokemon
-      console.log("ya pedi los types de los pokemons", typesResponse.data.results) //en la api puedo ver que los types estan en results
+      console.log("ya pedi los types de los pokemons", typesResponse.data.results) 
 
       const types = typesResponse.data.results.map(result => ({ name: result.name }));
 

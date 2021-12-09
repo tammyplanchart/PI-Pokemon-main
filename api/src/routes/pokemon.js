@@ -63,7 +63,7 @@ router.get('/', function (req, res) {
         name: pokemon.name,
         attack: pokemon.attack,
         types: pokemon.types.map(type => type.name),
-        image: pokemon.image || "https://thumbs.gfycat.com/DownrightPoliticalGermanwirehairedpointer-size_restricted.gif"
+        image: pokemon.image || "https://media2.giphy.com/media/A6yteqf4isDwA/giphy.gif"
     })));
 
     // a partir de aca junto los pokemons de pokeapi y la de la base de datos
@@ -94,7 +94,7 @@ router.get('/:idPokemon', function (req, res) {// router maneja como definimos e
             .then(pokemon => {
                 res.send({// aqui pongo todo en un solo objeto la info de un solo pokemon
                     ...pokemon.dataValues,
-                    image: pokemon.dataValues.image || "https://thumbs.gfycat.com/DownrightPoliticalGermanwirehairedpointer-size_restricted.gif",
+                    image: pokemon.dataValues.image || "https://media2.giphy.com/media/A6yteqf4isDwA/giphy.gif",
                     types: pokemon.dataValues.types.map(type => type.dataValues.name) // formatear los tipos para que me devuelva solo el nombre de los tipos
                 });
             })
