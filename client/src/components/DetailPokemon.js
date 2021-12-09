@@ -1,3 +1,4 @@
+import './DetailPokemon.css';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,7 +50,7 @@ function Detail() {
         </tbody>
       </table>
       <h3>Tipos</h3>
-      <ul>
+      <ul className="typePokemon">
         {pokemon.types.map(type => <li key={type}>{type}</li>)}
       </ul>
     </div>

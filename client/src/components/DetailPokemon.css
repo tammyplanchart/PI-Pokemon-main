@@ -1,0 +1,7 @@
+.typePokemon{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    list-style-type: none;
+    padding-left: 0;
+}
