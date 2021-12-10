@@ -42,7 +42,7 @@ function Formularios() {
         if (e.target.checked) {// si esta chequeado lo agrego al array de types y le doy un id       
             types = [...input.types, id] //es un array que tiene todos los elementos de input.types y le agrego el id
         } else {
-            types = types.filter(type => type !== id);// sino esta chequeado lo saco del array de types
+            types = input.types.filter(type => type !== id);// sino esta chequeado lo saco del array de types
         }
 
         setInput({ ...input, types: types });
@@ -52,6 +52,14 @@ function Formularios() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(input.types.length === 0){
+            alert("Debes seleccionar al menos un tipo");
+            return
+        }
+        if(input.name.length < 4 || /\d/.test(input.name)){
+            alert("Nombre incorrecto");
+            return
+        }
         dispatch(createPokemon(input, history))  // dispatch(createPokemon(input))
     };
 
