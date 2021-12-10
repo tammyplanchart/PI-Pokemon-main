@@ -22,37 +22,29 @@ function Detail() {
   }
 
   return (
-    <div>
+    <div className="detailPokemon">
       <NavBar />
-      <h1 >{pokemon.name}</h1>
-      <h2 >{pokemon.pokemonId}</h2>
-      <img src={pokemon.image} alt={pokemon.name} width={200}/>
-      <table>
-        <thead>
-          <tr>
-            <td>Fuerza</td>
-            <td>Defensa</td>
-            <td>Vida</td>
-            <td>Velocidad</td>
-            <td>Altura</td>
-            <td>Peso</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr >
-            <td>{pokemon.attack}</td>
-            <td>{pokemon.defense}</td>
-            <td>{pokemon.hp}</td>
-            <td>{pokemon.speed}</td>
-            <td>{pokemon.height}</td>
-            <td>{pokemon.weight}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>Tipos</h3>
-      <ul className="typePokemon">
-        {pokemon.types.map(type => <li key={type}>{type}</li>)}
-      </ul>
+      <div className="detail">
+        <h1 >{pokemon.name}</h1>
+        <div className="details">
+          <ul className="left">
+                <li>ID: #{pokemon.pokemonId}</li>
+                <li>Fuerza: {pokemon.attack}</li>
+                <li>Defensa: {pokemon.defense}</li>
+                <li>Vida: {pokemon.hp}</li>
+                <li>Velocidad: {pokemon.speed}</li>
+                <li>Altura: {pokemon.height}</li>
+                <li>Peso: {pokemon.weight}</li>
+          </ul>
+          <div className="right">
+          <img src={pokemon.image} alt={pokemon.name} width={200} />
+          <h3>Tipos</h3>
+          <ul className="typePokemon">
+            {pokemon.types.map(type => <li key={type}>{type}</li>)}
+          </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

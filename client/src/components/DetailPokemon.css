@@ -1,7 +1,39 @@
+.detailPokemon{
+    background-color: rgba(221, 128, 240, 0.283);
+    height: 100vh;
+}
+
 .typePokemon{
     display: flex;
     justify-content: center;
     flex-direction: column;
     list-style-type: none;
     padding-left: 0;
+}
+
+.detail{
+    background-color: white;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 10px;
+    border-color: #b3485a;
+    width: 70vh;
+    margin: 50px auto;
+}
+
+.detail h1{
+    border-bottom-style: solid;
+}
+
+.details{
+    display: flex;
+}
+
+.left {
+    flex:1;
+    list-style: none;
+}
+
+.right {
+    flex:1
 }
