@@ -1,5 +1,75 @@
+.formularioscontainer {
+        height: 100vh;
+        background:url("https://pa1.narvii.com/6471/3fd9a0fdc87fbab3d0f7a2fb22ddcad3910d0ba8_hq.gif") repeat 0 0 fixed;
+}
+
+.partes{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 100px;
+        padding: 30px;
+}
+
 .Formularios{
-        background-color: #fdfbfd;
+        background-color: white;
         padding: 5px;
+        font-weight: bold;
+}
+
+.stats{
+        background-color: #dda1d3;
+        border-style: solid;
+        border-radius: 10px;
+        border-width: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 20px;
+}
+
+.stats h3{
+        align-self: center;
+}
+
+.stat{
+        display: flex;
+        align-items: center;
+}
+
+.stat label{
+        width: 90px;
+}
+
+.types{
+        background-color: #dda1d3;
+        border-style: solid;
+        border-radius: 10px;
+        border-width: 2px;
+        padding: 20px;
+}
+
+.types div{
+        display: flex;
+}
+
+.image{
+        background-color: #dda1d3;
+        border-style: solid;
+        border-radius: 10px;
+        border-width: 2px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+}
+
+.crearpokemon{
+        background-color: rgb(130, 12, 134);
+        padding: 10px;
+        color: white;
         font-weight: bold;
 }

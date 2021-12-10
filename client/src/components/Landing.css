@@ -11,3 +11,9 @@
 .Title {
   margin-top: 0
 }
+
+.Landing img{
+  height: 100px;
+  margin-top: 100px;
+  cursor: pointer;
+}

@@ -27,7 +27,7 @@ function Formularios() {
         height: 0,
         weight: 0,
         types: [],
-        image: ''
+        image: 'https://i.imgur.com/bUgN88M.png'
     });
 
     const handleChange = (e) => {
@@ -35,6 +35,7 @@ function Formularios() {
     };
 
     const handleChangeType = (e) => {
+        debugger
         const id = parseInt(e.target.name); // es el nombre del id  siempre me responde con un string por ser html por eso lo transformo a int
         let types = [];
 
@@ -61,89 +62,128 @@ function Formularios() {
     return (
         <>
             <NavBar />
-            <form onSubmit={handleSubmit}>
-                <input
-                    className="Formularios"
-                    name="name"
-                    type="text"
-                    value={input.name}
-                    onChange={handleChange}
-                    placeholder="Nombre"
-                    required
-                />
-                <input
-                    className="Formularios"
-                    name="attack"
-                    type="number"
-                    value={input.attack}
-                    onChange={handleChange}
-                    placeholder="Fuerza"
-                />
-                <input
-                    className="Formularios"
-                    name="defense"
-                    type="number"
-                    value={input.defense}
-                    onChange={handleChange}
-                    placeholder="Defensa"
-                />
-                <input
-                    className="Formularios"
-                    name="hp"
-                    type="number"
-                    value={input.hp}
-                    onChange={handleChange}
-                    placeholder="Vidas"
-                />
-                <input
-                    className="Formularios"
-                    name="speed"
-                    type="number"
-                    value={input.speed}
-                    onChange={handleChange}
-                    placeholder="Velocidad"
-                />
-                <input
-                    className="Formularios"
-                    name="height"
-                    type="number"
-                    value={input.height}
-                    onChange={handleChange}
-                    placeholder="Altura"
-                />
-                <input
-                    className="Formularios"
-                    name="weight"
-                    type="number"
-                    value={input.weight}
-                    onChange={handleChange}
-                    placeholder="Peso"
-                />
-                <br/>
-                {types.map(type =>
-                    <label key={type.id}>
+            <form onSubmit={handleSubmit} className="formularioscontainer">
+                <div className="partes">
+                    <div className="stats">
+                        <h3>General</h3>
+                        <div className="stat">
+                            <label htmlFor="name">
+                                Nombre
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="name"
+                                type="text"
+                                value={input.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="attack">
+                                Fuerza
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="attack"
+                                type="number"
+                                value={input.attack}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="defense">
+                                Defensa
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="defense"
+                                type="number"
+                                value={input.defense}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="hp">
+                                Vidas
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="hp"
+                                type="number"
+                                value={input.hp}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="speed">
+                                Velocidad
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="speed"
+                                type="number"
+                                value={input.speed}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="height">
+                                Altura
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="height"
+                                type="number"
+                                value={input.height}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="stat">
+                            <label htmlFor="weight">
+                                Peso
+                            </label>
+                            <input
+                                className="Formularios"
+                                name="weight"
+                                type="number"
+                                value={input.weight}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="image">
+                        <h3>Imagen</h3>
                         <input
-                            className="Formularios"
-                            type="checkbox"
-                            name={type.id} //para cada input de check se le agrega un id
-                            onChange={handleChangeType}
-                            checked={input.types.includes(type.id)} // va a estar checkeado si el id del input esta en el array de types
+                            className="Formularios url"
+                            name="image"
+                            type="url"
+                            value={input.image}
+                            onChange={handleChange}
+                            placeholder="URL de la imagen"
+                            maxLength={255}
                         />
-                        {type.name}
-                    </label>
-                )}
-                <br/>
-                <input
-                    className="Formularios"
-                    name="image"
-                    type="url"
-                    value={input.image}
-                    onChange={handleChange}
-                    placeholder="URL de la imagen"
-                    maxLength={255}
-                />
-                <br/>
-                <input type="submit" value="Submit" />
+                        <img src={input.image} width={130} />
+                    </div>
+                    <div className="types">
+                        <h3>Tipos</h3>
+                        {types.map(type =>
+                            <div key={type.id}>
+                                <input
+                                    className="Formularios"
+                                    type="checkbox"
+                                    name={type.id} //para cada input de check se le agrega un id
+                                    onChange={handleChangeType}
+                                    checked={input.types.includes(type.id)} // va a estar checkeado si el id del input esta en el array de types
+                                />
+                                <label  htmlFor={type.id}>
+                                    {type.name}
+                                </label>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <input type="submit" value="Crear pokemon" className="crearpokemon" />
             </form>
         </>
     )

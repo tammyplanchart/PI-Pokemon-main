@@ -11,10 +11,13 @@ function Landing() {
 
   return (
     <div className="Landing">
-        <h1 className="Title">Bienvenido a mi proyecto individual</h1>
-        <h2>Pokemon</h2>
-        <button onClick={handleClick}>Ingresar</button>
-    </div>
+      <h1 className="Title">Bienvenido a mi proyecto individual</h1>
+      <h2>Tammy Planchart</h2>
+      <img
+        src="http://teatro-badarkablar.esmiweb.es/files/2414/5917/1774/entrar-boton.png"
+        onClick={handleClick}>
+      </img>
+    </div >
   );
 }
 
