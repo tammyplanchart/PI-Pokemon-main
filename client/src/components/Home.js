@@ -117,7 +117,7 @@ function Home() {
       {!pokemonsLoading && pokemons.length === 0 && <p>No hay pokemons con ese nombre!</p>}
       {pokemons.length > 0 &&
         <div>
-          <table>
+          <table className ="table">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -128,11 +128,11 @@ function Home() {
             </thead>
             <tbody>
               {pokemonsByPage.map(pokemon =>
-                <tr key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
+                <tr className = "Item" key={pokemon.id} onClick={() => history.push("/pokemon/" + pokemon.id)}>
                   <td>{pokemon.name}</td>
                   <td><img src={pokemon.image} alt="pokeimagen" width={96} /></td>
                   <td>
-                    <ul>
+                    <ul className = "Puntitos">
                       {pokemon.types.map(type => <li key={type}>{type}</li>)}
                     </ul>
                   </td>

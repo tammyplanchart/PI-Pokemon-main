@@ -1,33 +1,22 @@
 
 
-table {
+.table {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
   border: 3px solid purple;
+  background-color: #f8e7f2;
 }
 
-thead th:nth-child(1) {
-  width: 40%;
-}
-
-thead th:nth-child(2) {
-  width: 20%;
-}
-
-thead th:nth-child(3) {
-  width: 15%;
-}
-
-thead th:nth-child(4) {
-  width: 40%;
-}
-
-th, td {
-  padding: 20px;
+.Puntitos{
+  list-style: none;
 }
 
 
 
+.Item:hover{
+  background-color: #e2dee1;
+  cursor: pointer;
+}
 
 
